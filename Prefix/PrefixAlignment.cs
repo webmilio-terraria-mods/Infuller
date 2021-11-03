@@ -6,6 +6,5 @@ public enum PrefixAlignment
     Bad = -1,
     Neutral = 0,
     Good = 1,
-    VeryGood = 2,
-    Unknown = Neutral
+    VeryGood = 2
 }

@@ -9,15 +9,23 @@ public class PrefixAlignments : ModSystem
 {
     private static Dictionary<int, PrefixAlignment> _vanilla;
 
-    public static PrefixAlignment Get(int prefix)
+    public static bool TryGet(int prefix, out PrefixAlignment alignment)
     {
+        alignment = PrefixAlignment.Neutral;
+
         if (prefix is > 0 and < PrefixID.Count)
         {
-            return _vanilla[prefix];
+            alignment = _vanilla[prefix];
+            return true;
         }
 
         // ReSharper disable once SuspiciousTypeConversion.Global
-        return PrefixLoader.GetPrefix(prefix) is IInfullerPrefix ip ? ip.Alignment : PrefixAlignment.Unknown;
+
+        if (PrefixLoader.GetPrefix(prefix) is not IInfullerPrefix ip)
+            return false;
+
+        alignment = ip.Alignment;
+        return true;
     }
 
     public override void Load()
@@ -36,7 +44,7 @@ public class PrefixAlignments : ModSystem
         AddAlignment(PrefixAlignment.Good, Heavy, Light, Powerful, Keen, Nimble, Furious, Nasty, Ruthless, Zealous, Bulky, Taboo, Manic, Pointy, Quick,
             Hurtful, Large, Dangerous, Sighted, Agile, Sharp, Adept, Forceful, Strong);
         AddAlignment(PrefixAlignment.VeryGood, Murderous, Massive, Celestial, Intimidating, Unpleasant, Deadly, Demonic, Superior, Rapid, Hasty,
-            Staunch, Mystic, Deadly, Savage, Masterful, Godly, Legendary, Unreal, Mythical);
+            Staunch, Mystic, Deadly2, Savage, Masterful, Godly, Legendary, Legendary2, Unreal, Mythical);
     }
 
     public override void Unload()
