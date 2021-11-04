@@ -1,1 +1,1 @@
-Infuller is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Infuller is a small library dedicated to adding information about the various items, blocks, npcs and anything else Terraria has.
