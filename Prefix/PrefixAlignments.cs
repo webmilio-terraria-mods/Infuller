@@ -7,35 +7,21 @@ namespace Infuller.Prefix;
 
 public class PrefixAlignments : ModSystem
 {
-    private static Dictionary<int, PrefixAlignment> _vanilla;
+    private static Dictionary<int, PrefixAlignment> _alignments;
 
     public static bool TryGet(int prefix, out PrefixAlignment alignment)
     {
-        alignment = PrefixAlignment.Neutral;
-
-        if (prefix is > 0 and < PrefixID.Count)
-        {
-            alignment = _vanilla[prefix];
-            return true;
-        }
-
-        // ReSharper disable once SuspiciousTypeConversion.Global
-
-        if (PrefixLoader.GetPrefix(prefix) is not IInfullerPrefix ip)
-            return false;
-
-        alignment = ip.Alignment;
-        return true;
+        return _alignments.TryGetValue(prefix, out alignment);
     }
 
     public override void Load()
     {
-        _vanilla = new();
+        _alignments = new();
 
-        void AddAlignment(PrefixAlignment alignment, params int[] prefixes)
+        static void AddAlignment(PrefixAlignment alignment, params int[] prefixes)
         {
             for (int i = 0; i < prefixes.Length; i++)
-                _vanilla.Add(prefixes[i], alignment);
+                _alignments.Add(prefixes[i], alignment);
         }
 
         AddAlignment(PrefixAlignment.VeryBad, Broken, Terrible, Annoying, Awful, Awkward, Ignorant, Unhappy, Lethargic, Shoddy);
@@ -47,8 +33,20 @@ public class PrefixAlignments : ModSystem
             Staunch, Mystic, Deadly2, Savage, Masterful, Godly, Legendary, Legendary2, Unreal, Mythical);
     }
 
+    public override void PostSetupContent()
+    {
+        for (int i = PrefixID.Count; i < PrefixLoader.PrefixCount; i++)
+        {
+            var prefix = PrefixLoader.GetPrefix(i);
+
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (prefix is IInfullerPrefix ip)
+                _alignments.Add(i, ip.Alignment);
+        }
+    }
+
     public override void Unload()
     {
-        _vanilla = null;
+        _alignments = null;
     }
 }
