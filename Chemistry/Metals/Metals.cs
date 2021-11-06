@@ -1,6 +1,8 @@
-﻿namespace Infuller.Chemistry.Metals;
+﻿using Terraria.ModLoader;
 
-public class Metals : Loader
+namespace Infuller.Chemistry.Metals;
+
+public class Metals
 {
     
 }
