@@ -13,6 +13,11 @@ public class Guns : ItemSystem
         return _gunTypes.ContainsKey(type);
     }
 
+    public static bool TryGet(int type, out GunType gunType)
+    {
+        return _gunTypes.TryGetValue(type, out gunType);
+    }
+
     protected override void SetupVanilla()
     {
         static void Add(GunType type, params int[] types)
