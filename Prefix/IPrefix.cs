@@ -1,6 +1,6 @@
 ﻿namespace Infuller.Prefix;
 
-public interface IInfullerPrefix
+public interface IPrefix
 {
     public PrefixAlignment Alignment { get; }
 }

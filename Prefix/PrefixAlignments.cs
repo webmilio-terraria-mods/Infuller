@@ -40,7 +40,7 @@ public class PrefixAlignments : ModSystem
             var prefix = PrefixLoader.GetPrefix(i);
 
             // ReSharper disable once SuspiciousTypeConversion.Global
-            if (prefix is IInfullerPrefix ip)
+            if (prefix is IPrefix ip)
                 _alignments.Add(i, ip.Alignment);
         }
     }
