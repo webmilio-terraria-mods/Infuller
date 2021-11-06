@@ -5,7 +5,7 @@ using static Terraria.ID.PrefixID;
 
 namespace Infuller.Prefix;
 
-public class PrefixAlignments : ModSystem
+public class Prefixes : ModSystem
 {
     private static Dictionary<int, PrefixAlignment> _alignments;
 
@@ -21,7 +21,7 @@ public class PrefixAlignments : ModSystem
         static void AddAlignment(PrefixAlignment alignment, params int[] prefixes)
         {
             for (int i = 0; i < prefixes.Length; i++)
-                _alignments.Add(prefixes[i], alignment);
+                Register(prefixes[i], alignment);
         }
 
         AddAlignment(PrefixAlignment.VeryBad, Broken, Terrible, Annoying, Awful, Awkward, Ignorant, Unhappy, Lethargic, Shoddy);
@@ -32,6 +32,8 @@ public class PrefixAlignments : ModSystem
         AddAlignment(PrefixAlignment.VeryGood, Murderous, Massive, Celestial, Intimidating, Unpleasant, Deadly, Demonic, Superior, Rapid, Hasty,
             Staunch, Mystic, Deadly2, Savage, Masterful, Godly, Legendary, Legendary2, Unreal, Mythical);
     }
+
+    public static void Register(int type, PrefixAlignment alignment) => _alignments.Add(type, alignment);
 
     public override void PostSetupContent()
     {
