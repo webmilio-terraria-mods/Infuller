@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Guns\" />
+    <Folder Include="Items\Swords\" />
     <Folder Include="Items\Repeater\" />
   </ItemGroup>
 </Project>

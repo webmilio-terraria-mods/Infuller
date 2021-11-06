@@ -1,3 +1,4 @@
 displayName = Infuller
 author = Webmilio
 version = 1.0
+home = https://github.com/webmilio-terraria-mods/Infuller

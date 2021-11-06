@@ -2,5 +2,5 @@
 
 public interface IGun
 {
-    
+    public GunType GunType { get; }
 }
