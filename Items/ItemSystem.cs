@@ -11,16 +11,11 @@ public abstract class ItemSystem : ModSystem, IItemSystem
 
     public override void PostSetupContent()
     {
-        Items = new bool[ItemLoader.ItemCount + 1]; // Item 0 doesn't exist.
-
         SetupVanilla();
         SetupModded();
     }
 
-    public override void Unload()
-    {
-        Items = null;
-    }
+    public abstract override void Unload();
 
     public static void ForModItems<TK>(Action<int, TK> action)
     {
@@ -33,8 +28,10 @@ public abstract class ItemSystem : ModSystem, IItemSystem
         }
     }
 
-    // ReSharper disable once StaticMemberInGenericType
-    protected static bool[] Items { get; private set; }
+    protected static bool[] StandardItemArray()
+    {
+        return new bool[ItemLoader.ItemCount + 1]; // Item 0 doesn't exist.
+    }
 }
 
 public abstract class ItemSystem<T> : ItemSystem, IItemSystem
@@ -53,6 +50,18 @@ public abstract class ItemSystem<T> : ItemSystem, IItemSystem
         });
     }
 
+    public override void PostSetupContent()
+    {
+        Items = StandardItemArray();
+
+        base.PostSetupContent();
+    }
+
+    public override void Unload()
+    {
+        Items = null;
+    }
+
     public static void Register(int type) => Items[type] = true;
 
     protected virtual void SetupModItem(int type, T item) { }
@@ -60,4 +69,7 @@ public abstract class ItemSystem<T> : ItemSystem, IItemSystem
     public static bool Is(int type) => Items[type];
 
     protected virtual int[] VanillaIDs => throw new NotImplementedException();
+
+    // ReSharper disable once StaticMemberInGenericType
+    protected static bool[] Items { get; private set; }
 }

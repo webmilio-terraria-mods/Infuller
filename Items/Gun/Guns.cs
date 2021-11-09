@@ -1,22 +1,15 @@
 ﻿using System.Collections.Generic;
-using Terraria.ModLoader;
 using static Terraria.ID.ItemID;
 
-namespace Infuller.Items.Guns;
+namespace Infuller.Items.Gun;
 
 public class Guns : ItemSystem
 {
-    private static Dictionary<int, GunType> _gunTypes;
+    protected static Dictionary<int, GunType> items;
 
-    public static bool Is(int type)
-    {
-        return _gunTypes.ContainsKey(type);
-    }
+    public static bool Is(int type) => items.ContainsKey(type);
 
-    public static bool TryGet(int type, out GunType gunType)
-    {
-        return _gunTypes.TryGetValue(type, out gunType);
-    }
+    public static bool TryGet(int type, out GunType gunType) => items.TryGetValue(type, out gunType);
 
     protected override void SetupVanilla()
     {
@@ -48,11 +41,11 @@ public class Guns : ItemSystem
         });
     }
 
-    public static void Register(int type, GunType gunType) => _gunTypes.Add(type, gunType);
+    public static void Register(int type, GunType gunType) => items.Add(type, gunType);
 
     public override void PostSetupContent()
     {
-        _gunTypes = new();
+        items = new();
 
         SetupVanilla();
         SetupModded();
@@ -60,14 +53,6 @@ public class Guns : ItemSystem
 
     public override void Unload()
     {
-        _gunTypes = null;
+        items = null;
     }
-
-    protected int[] VanillaIDs { get; } =
-    {
-        Blowgun, Blowpipe, Boomstick, CandyCornRifle, ChainGun, ClockworkAssaultRifle, DartPistol, DartRifle, EldMelter, Flamethrower,
-        FlintlockPistol, Gatligator, Handgun, Megashark, Minishark, Musket, OnyxBlaster, PhoenixBlaster, QuadBarrelShotgun, RedRyder,
-        Revolver, SDMG, Sandgun, Shotgun, SniperRifle, SnowballCannon, StarCannon, SuperStarCannon, TacticalShotgun, TheUndertaker,
-        Uzi, VenusMagnum, VortexBeater, Xenopopper
-    };
 }
