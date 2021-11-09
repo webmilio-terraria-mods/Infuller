@@ -22,6 +22,7 @@ public class Wands : MagicSystem<IWand>
             Flamelash, FlowerofFire,
             InfernoFork,
             WandofSparking);
+
         Add(new(IMagic.ElementNature),
             BatScepter, BookStaff,
             CrimsonRod,
@@ -29,6 +30,7 @@ public class Wands : MagicSystem<IWand>
             Razorpine,
             StaffofEarth, StaffofRegrowth,
             VenomStaff, Vilethorn);
+
         Add(new(IMagic.ElementWater), 
             AquaScepter, 
             BlizzardStaff, 
