@@ -2,5 +2,5 @@
 
 public interface IMelee
 {
-    public WeaponHands WeaponHands { get; }
+    public MeleeRecord MeleeRecord { get; }
 }
