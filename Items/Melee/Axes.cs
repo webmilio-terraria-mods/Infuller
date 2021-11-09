@@ -6,7 +6,7 @@ public class Axes : MeleeSystem<IAxe>
 {
     protected override void SetupVanilla()
     {
-        Add(new(WeaponHands.OneHanded), ShroomiteDiggingClaw);
+        Add(new(WeaponHands.OneHanded), PossessedHatchet, ShroomiteDiggingClaw);
 
         Add(new(WeaponHands.TwoHanded),
             AdamantiteWaraxe, 
