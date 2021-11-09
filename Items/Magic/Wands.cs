@@ -2,6 +2,7 @@
 
 namespace Infuller.Items.Magic;
 
+// Also emcompasses staffs.
 public class Wands : MagicSystem<IWand>
 {
     protected override void SetupVanilla()
@@ -28,7 +29,7 @@ public class Wands : MagicSystem<IWand>
             CrimsonRod,
             NettleBurst, PoisonStaff,
             Razorpine,
-            StaffofEarth, StaffofRegrowth,
+            StaffofEarth, StaffofRegrowth, ScourgeoftheCorruptor,
             VenomStaff, Vilethorn);
 
         Add(new(IMagic.ElementWater), 
@@ -37,7 +38,7 @@ public class Wands : MagicSystem<IWand>
             FlowerofFrost, FrostStaff,
             IceRod);
 
-        Add(new(IMagic.ElementFire, IMagic.ElementNature), MeteorStaff);
-        Add(new(IMagic.ElementArcane, IMagic.ElementNature), CrystalSerpent, CrystalVileShard, NimbusRod);
+        Add(new(IMagic.ElementFire, IMagic.ElementNature), MeteorStaff, MonkStaffT1);
+        Add(new(IMagic.ElementArcane, IMagic.ElementNature), CrystalSerpent, CrystalVileShard, MonkStaffT3, NimbusRod);
     }
 }
