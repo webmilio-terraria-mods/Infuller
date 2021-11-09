@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using static Terraria.ID.ItemID;
 
-namespace Infuller.Items.Gun;
+namespace Infuller.Items.Ranged.Gun;
 
 public class Guns : ItemSystem
 {

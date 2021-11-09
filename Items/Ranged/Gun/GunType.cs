@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infuller.Items.Gun;
+namespace Infuller.Items.Ranged.Gun;
 
 [Flags]
 public enum GunType : ushort

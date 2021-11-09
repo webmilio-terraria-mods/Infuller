@@ -1,4 +1,4 @@
-﻿namespace Infuller.Items.Gun;
+﻿namespace Infuller.Items.Ranged.Gun;
 
 public interface IGun
 {
