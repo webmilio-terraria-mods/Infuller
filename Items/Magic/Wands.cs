@@ -27,7 +27,7 @@ public class Wands : MagicSystem<IWand>
             CrimsonRod,
             NettleBurst, PoisonStaff,
             Razorpine,
-            StaffofEarth,
+            StaffofEarth, StaffofRegrowth,
             VenomStaff, Vilethorn);
         Add(new(IMagic.ElementWater), 
             AquaScepter, 
