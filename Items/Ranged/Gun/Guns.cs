@@ -29,8 +29,17 @@ public class Guns : ItemSystem
         Add(GunType.Cannon, SnowballCannon, StarCannon, SuperStarCannon, Sandgun);
         Add(GunType.Other, Blowgun, Blowpipe);
         
-        Add(GunType.SemiAutomaticRifle, DartRifle, Musket, RedRyder, SniperRifle);
-        Add(GunType.AutomaticRifle, CandyCornRifle, ChainGun, ClockworkAssaultRifle, Gatligator, Megashark, Minishark, SDMG, VortexBeater);
+        Add(GunType.SemiAutomaticRifle, DartRifle);
+        Add(GunType.BoltAction, Musket, RedRyder, SniperRifle);
+
+        Add(GunType.AutomaticRifle, 
+            BubbleGun,
+            CandyCornRifle, ChainGun, ClockworkAssaultRifle, 
+            LaserRifle,
+            Gatligator, 
+            Megashark, Minishark, 
+            SpaceGun, SDMG, 
+            VortexBeater);
     }
 
     protected override void SetupModded()

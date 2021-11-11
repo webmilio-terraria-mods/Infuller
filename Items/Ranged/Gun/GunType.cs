@@ -15,6 +15,7 @@ public enum GunType : ushort
     Rifle = 0b0010_0000,
     SemiAutomaticRifle = 0b0100_0000 | Rifle,
     AutomaticRifle = 0b1000_0000 | Rifle,
+    BoltAction = 0b0001_0000_0000, 
 
-    Other = 0b0001_0000_0000
+    Other = 0b1000_0000_0000
 }

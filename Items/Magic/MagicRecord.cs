@@ -2,7 +2,7 @@
 
 namespace Infuller.Items.Magic;
 
-public record MagicRecord(params string[] Elements)
+public record MagicRecord(MagicEffectType EffectType, params string[] Elements)
 {
     public bool IsElement(string element)
     {

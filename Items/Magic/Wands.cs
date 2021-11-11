@@ -7,38 +7,46 @@ public class Wands : MagicSystem<IWand>
 {
     protected override void SetupVanilla()
     {
-        Add(new(IMagic.ElementArcane),
+        Add(new(MagicEffectType.Attack | MagicEffectType.Buff, IMagic.ElementArcane),
+            SoulDrain);
+
+        Add(new(MagicEffectType.Attack, IMagic.ElementArcane),
             MagicMissile,
             PrincessWeapon,
             RainbowRod,
-            ShadowbeamStaff, SkyFracture, SoulDrain, SpectreStaff,
+            ShadowbeamStaff, SkyFracture, SpectreStaff,
             ThunderStaff,
             UnholyTrident,
 
             AmberStaff, AmethystStaff, DiamondStaff, EmeraldStaff, RubyStaff, SapphireStaff, TopazStaff);
 
-        Add(new(IMagic.ElementFire),
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementFire),
             ApprenticeStaffT3,
             ClingerStaff,
             Flamelash, FlowerofFire,
-            InfernoFork,
+            InfernoFork, 
             WandofSparking);
 
-        Add(new(IMagic.ElementNature),
+        Add(new(MagicEffectType.Attack, IMagic.ElementNature),
             BatScepter, BookStaff,
-            CrimsonRod,
-            NettleBurst, PoisonStaff,
+            NettleBurst,
             Razorpine,
             StaffofEarth, StaffofRegrowth, ScourgeoftheCorruptor,
-            VenomStaff, Vilethorn);
+            Vilethorn);
 
-        Add(new(IMagic.ElementWater), 
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementNature),
+            PoisonStaff, VenomStaff);
+
+        Add(new(MagicEffectType.Attack, IMagic.ElementWater), 
             AquaScepter, 
             BlizzardStaff, 
-            FlowerofFrost, FrostStaff,
+            FrostStaff,
             IceRod);
 
-        Add(new(IMagic.ElementFire, IMagic.ElementNature), MeteorStaff, MonkStaffT1);
-        Add(new(IMagic.ElementArcane, IMagic.ElementNature), CrystalSerpent, CrystalVileShard, MonkStaffT3, NimbusRod);
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementWater),
+            CrimsonRod, FlowerofFrost, NimbusRod);
+
+        Add(new(MagicEffectType.Attack, IMagic.ElementFire, IMagic.ElementNature), MeteorStaff, MonkStaffT1);
+        Add(new(MagicEffectType.Attack, IMagic.ElementArcane, IMagic.ElementNature), CrystalSerpent, CrystalVileShard, MonkStaffT3);
     }
 }

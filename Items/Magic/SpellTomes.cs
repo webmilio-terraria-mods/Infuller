@@ -6,10 +6,12 @@ public class SpellTomes : MagicSystem<ISpellTome>
 {
     protected override void SetupVanilla()
     {
-        Add(new(IMagic.ElementArcane), BookofSkulls, DemonScythe, LunarFlareBook, MagnetSphere);
-        Add(new(IMagic.ElementWater), GoldenShower, RazorbladeTyphoon, WaterBolt);
+        Add(new(MagicEffectType.Attack, IMagic.ElementArcane), BookofSkulls, DemonScythe, LunarFlareBook, MagnetSphere);
 
-        Add(new(IMagic.ElementArcane, IMagic.ElementFire), CursedFlame);
-        Add(new(IMagic.ElementArcane, IMagic.ElementNature), CrystalStorm);
+        Add(new(MagicEffectType.Attack, IMagic.ElementWater), RazorbladeTyphoon, WaterBolt);
+        Add(new(MagicEffectType.Debuff), GoldenShower);
+
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementArcane, IMagic.ElementFire), CursedFlame);
+        Add(new(MagicEffectType.Attack, IMagic.ElementArcane, IMagic.ElementNature), CrystalStorm);
     }
 }
