@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Infuller.Extensions;
+using System.Collections.ObjectModel;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -6,16 +9,50 @@ namespace Infuller.Items;
 
 public abstract class ItemSystem : ModSystem, IItemSystem
 {
-    protected abstract void SetupVanilla();
-    protected abstract void SetupModded();
+    #region Instanciated
 
-    public override void PostSetupContent()
+    protected abstract void SetupVanilla();
+    protected virtual void PostSetupVanilla() { }
+
+    protected abstract void SetupModded();
+    protected virtual void PostSetupModded() { }
+
+    public override void OnModLoad()
     {
         SetupVanilla();
+        PostSetupVanilla();
+
         SetupModded();
+        PostSetupModded();
+
+        PostSetup();
     }
 
+    protected virtual void PostSetup() { }
+
     public abstract override void Unload();
+
+    public abstract Type Type { get; protected set; }
+
+    #endregion
+
+
+    #region Static
+
+    private static Dictionary<int, (List<IItemSystem> original, ReadOnlyCollection<IItemSystem> read)> _systems;
+    private static Dictionary<int, (List<Type> original, ReadOnlyCollection<Type> read)> _types;
+
+    internal static void StaticModLoad()
+    {
+        _systems = new();
+        _types = new();
+    }
+
+    internal static void StaticModUnload()
+    {
+        _systems = null;
+        _types = null;
+    }
 
     public static void ForModItems<TK>(Action<int, TK> action)
     {
@@ -28,33 +65,69 @@ public abstract class ItemSystem : ModSystem, IItemSystem
         }
     }
 
-    protected static bool[] StandardItemArray()
+    internal static void RegisterSystem(int type, IItemSystem system)
     {
-        return new bool[ItemLoader.ItemCount + 1]; // Item 0 doesn't exist.
+        static (List<T> original, ReadOnlyCollection<T> read) CreatePair<T>()
+        {
+            List<T> list = new();
+            return new(list, list.AsReadOnly());
+        }
+
+        _systems.AddOrGet(type, out var systems, CreatePair<IItemSystem>);
+        _types.AddOrGet(type, out var items, CreatePair<Type>);
+
+        systems.original.Add(system);
+        items.original.Add(system.Type);
     }
+
+    public static bool GetSystems(int type, out ReadOnlyCollection<IItemSystem> systems)
+    {
+        if (!_systems.TryGetValue(type, out var values))
+        {
+            systems = null;
+            return false;
+        }
+
+        systems = values.read;
+        return true;
+    }
+
+    public static bool TryGetItemTypes(int type, out ReadOnlyCollection<Type> types)
+    {
+        if (!_types.TryGetValue(type, out var values))
+        {
+            types = null;
+            return false;
+        }
+
+        types = values.read;
+        return true;
+    }
+
+    #endregion
 }
 
-public abstract class ItemSystem<T> : ItemSystem, IItemSystem
+public abstract class ItemSystem<TI, TR> : ItemSystem
 {
-    protected override void SetupVanilla()
-    {
-        Items.Set(true, VanillaIDs);
-    }
+    protected abstract override void SetupVanilla();
 
     protected override void SetupModded()
     {
-        ForModItems<T>(delegate(int type, T item)
+        ForModItems<TI>(delegate (int type, TI item)
         {
-            Register(type);
+            Register(type, RecordSelector(item));
             SetupModItem(type, item);
         });
     }
 
+    public override void Load()
+    {
+        Items = new TR[ItemLoader.ItemCount + 1];
+    }
+
     public override void PostSetupContent()
     {
-        Items = StandardItemArray();
-
-        base.PostSetupContent();
+        Mod.Logger.Info($"Registered {Registered} {typeof(TI).Name}/{typeof(TR).Name}.");
     }
 
     public override void Unload()
@@ -62,14 +135,37 @@ public abstract class ItemSystem<T> : ItemSystem, IItemSystem
         Items = null;
     }
 
-    public static void Register(int type) => Items[type] = true;
+    protected void Add(TR record, params int[] types)
+    {
+        for (int i = 0; i < types.Length; i++)
+        {
+            Register(types[i], record);
+        }
+    }
 
-    protected virtual void SetupModItem(int type, T item) { }
+    public void Register(int type, TR record)
+    {
+        Items[type] = record;
+        Registered++;
 
-    public static bool Is(int type) => Items[type];
+        RegisterSystem(type, this);
+    }
 
-    protected virtual int[] VanillaIDs => throw new NotImplementedException();
+    protected virtual void SetupModItem(int type, TI item) { }
+
+    public static bool Is(int type) => Items[type] != null;
+
+    public static bool TryGet(int type, out TR record)
+    {
+        record = Items[type];
+        return record != null;
+    }
 
     // ReSharper disable once StaticMemberInGenericType
-    protected static bool[] Items { get; private set; }
+    protected static TR[] Items { get; private set; }
+
+    protected abstract Func<TI, TR> RecordSelector { get; }
+    public int Registered { get; protected set; }
+
+    public override Type Type { get; protected set; } = typeof(TI);
 }

@@ -3,7 +3,7 @@
 namespace Infuller.Items.Ranged.Gun;
 
 [Flags]
-public enum GunType : ushort
+public enum GunClass : ushort
 {
     Pistol = 0b0001,
     Shotgun = 0b0010,

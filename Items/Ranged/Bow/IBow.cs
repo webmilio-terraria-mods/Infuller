@@ -2,5 +2,5 @@
 
 public interface IBow
 {
-    
+    public BowRecord BowRecord { get; }
 }

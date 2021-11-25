@@ -1,38 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using static Terraria.ID.ItemID;
 
 namespace Infuller.Items.Ranged.Gun;
 
-public class Guns : ItemSystem
+public class Guns : ItemSystem<IGun, GunRecord>
 {
-    protected static Dictionary<int, GunType> items;
-
-    public static bool Is(int type) => items.ContainsKey(type);
-
-    public static bool TryGet(int type, out GunType gunType) => items.TryGetValue(type, out gunType);
-
     protected override void SetupVanilla()
     {
-        static void Add(GunType type, params int[] types)
-        {
-            for (int i = 0; i < types.Length; i++)
-            {
-                Register(types[i], type);
-            }
-        }
-        
-        Add(GunType.Pistol, DartPistol, FlintlockPistol, Handgun, OnyxBlaster, PhoenixBlaster, Revolver, TheUndertaker, VenusMagnum);
-        Add(GunType.Shotgun, Boomstick, QuadBarrelShotgun, Shotgun, TacticalShotgun, Xenopopper);
-        Add(GunType.SMG, Uzi);
+        Add(new(GunClass.Pistol), DartPistol, FlintlockPistol, Handgun, OnyxBlaster, PhoenixBlaster, Revolver, TheUndertaker, VenusMagnum);
+        Add(new(GunClass.Shotgun), Boomstick, QuadBarrelShotgun, Shotgun, TacticalShotgun, Xenopopper);
+        Add(new(GunClass.SMG), Uzi);
 
-        Add(GunType.Flamethrower, EldMelter, Flamethrower);
-        Add(GunType.Cannon, SnowballCannon, StarCannon, SuperStarCannon, Sandgun);
-        Add(GunType.Other, Blowgun, Blowpipe);
+        Add(new(GunClass.Flamethrower), EldMelter, Flamethrower);
+        Add(new(GunClass.Cannon), SnowballCannon, StarCannon, SuperStarCannon, Sandgun);
+        Add(new(GunClass.Other), Blowgun, Blowpipe);
         
-        Add(GunType.SemiAutomaticRifle, DartRifle);
-        Add(GunType.BoltAction, Musket, RedRyder, SniperRifle);
+        Add(new(GunClass.SemiAutomaticRifle), DartRifle);
+        Add(new GunRecord(GunClass.BoltAction), Musket, RedRyder, SniperRifle);
 
-        Add(GunType.AutomaticRifle, 
+        Add(new(GunClass.AutomaticRifle), 
             BubbleGun,
             CandyCornRifle, ChainGun, ClockworkAssaultRifle, 
             LaserRifle,
@@ -42,26 +29,5 @@ public class Guns : ItemSystem
             VortexBeater);
     }
 
-    protected override void SetupModded()
-    {
-        ForModItems(delegate(int type, IGun gun)
-        {
-            Register(type, gun.GunType);
-        });
-    }
-
-    public static void Register(int type, GunType gunType) => items.Add(type, gunType);
-
-    public override void PostSetupContent()
-    {
-        items = new();
-
-        SetupVanilla();
-        SetupModded();
-    }
-
-    public override void Unload()
-    {
-        items = null;
-    }
+    protected override Func<IGun, GunRecord> RecordSelector { get; } = g => g.GunRecord;
 }

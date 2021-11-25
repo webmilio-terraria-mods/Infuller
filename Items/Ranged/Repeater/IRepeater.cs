@@ -1,6 +1,6 @@
 ﻿namespace Infuller.Items.Ranged.Repeater;
 
-public interface IRepeater
+public interface IRepeater : IRanged
 {
     
 }

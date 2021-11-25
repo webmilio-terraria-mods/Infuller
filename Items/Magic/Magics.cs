@@ -1,11 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Infuller.Items.Magic;
 
-public class Magics : MagicSystem<IMagic>
+public class Magics : ItemSystem<IMagic, MagicRecord>
 {
-    protected override void SetupVanilla()
+    protected override void SetupVanilla() { }
+
+    public bool TryAdd(int type, MagicRecord record)
     {
-        items = new Dictionary<int, MagicRecord>();
+        if (TryGet(type, out _))
+            return false;
+
+        Register(type, record);
+        return true;
     }
+
+    protected override Func<IMagic, MagicRecord> RecordSelector { get; } = magic => magic.MagicRecord;
 }
