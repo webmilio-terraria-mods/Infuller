@@ -39,12 +39,13 @@ public class Wands : MagicSystem<IWand>
 
         Add(new(MagicEffectType.Attack, IMagic.ElementWater), 
             AquaScepter, 
-            BlizzardStaff, 
+            BlizzardStaff,
+            CrimsonRod,
             FrostStaff,
-            IceRod);
+            IceRod,
+            NimbusRod);
 
-        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementWater),
-            CrimsonRod, FlowerofFrost, NimbusRod);
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementWater), FlowerofFrost);
 
         Add(new(MagicEffectType.Attack, IMagic.ElementFire, IMagic.ElementNature), MeteorStaff, MonkStaffT1);
         Add(new(MagicEffectType.Attack, IMagic.ElementArcane, IMagic.ElementNature), CrystalSerpent, CrystalVileShard, MonkStaffT3);

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace Infuller.Items.Magic;
 
-public abstract class MagicSystem<T> : ItemSystem<T, MagicRecord> where T : IMagic
+public abstract class MagicSystem<T> : TypeSystem<T, MagicRecord> where T : IMagic
 {
     protected override void PostSetupVanilla()
     {

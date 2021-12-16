@@ -3,7 +3,7 @@ using static Terraria.ID.ItemID;
 
 namespace Infuller.Items.Armors;
 
-public class Armors : ItemSystem<IArmor, ArmorRecord>
+public class Armors : TypeSystem<IArmor, ArmorRecord>
 {
     protected override void SetupVanilla()
     {

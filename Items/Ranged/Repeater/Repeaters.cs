@@ -3,7 +3,7 @@ using static Terraria.ID.ItemID;
 
 namespace Infuller.Items.Ranged.Repeater;
 
-public class Repeaters : ItemSystem<IRepeater, RangedRecord>
+public class Repeaters : TypeSystem<IRepeater, RangedRecord>
 {
     protected override void SetupVanilla()
     {

@@ -11,7 +11,7 @@ public class SpellTomes : MagicSystem<ISpellTome>
         Add(new(MagicEffectType.Attack, IMagic.ElementWater), RazorbladeTyphoon, WaterBolt);
         Add(new(MagicEffectType.Debuff), GoldenShower);
 
-        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementArcane, IMagic.ElementFire), CursedFlame);
+        Add(new(MagicEffectType.Attack | MagicEffectType.Debuff, IMagic.ElementArcane, IMagic.ElementFire), CursedFlames);
         Add(new(MagicEffectType.Attack, IMagic.ElementArcane, IMagic.ElementNature), CrystalStorm);
     }
 }

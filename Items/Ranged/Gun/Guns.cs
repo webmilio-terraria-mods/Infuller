@@ -4,7 +4,7 @@ using static Terraria.ID.ItemID;
 
 namespace Infuller.Items.Ranged.Gun;
 
-public class Guns : ItemSystem<IGun, GunRecord>
+public class Guns : TypeSystem<IGun, GunRecord>
 {
     protected override void SetupVanilla()
     {

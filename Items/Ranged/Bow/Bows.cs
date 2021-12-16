@@ -3,7 +3,7 @@ using static Terraria.ID.ItemID;
 
 namespace Infuller.Items.Ranged.Bow;
 
-public class Bows : ItemSystem<IBow, BowRecord>
+public class Bows : TypeSystem<IBow, BowRecord>
 {
     protected override void SetupVanilla()
     {

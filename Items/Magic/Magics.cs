@@ -2,7 +2,7 @@
 
 namespace Infuller.Items.Magic;
 
-public class Magics : ItemSystem<IMagic, MagicRecord>
+public class Magics : TypeSystem<IMagic, MagicRecord>
 {
     protected override void SetupVanilla() { }
 

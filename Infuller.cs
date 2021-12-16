@@ -7,11 +7,11 @@ public class Infuller : Mod
 {
     public override void Load()
     {
-        ItemSystem.StaticModLoad();
+        TypeSystem.StaticModLoad();
     }
 
     public override void Unload()
     {
-        ItemSystem.StaticModUnload();
+        TypeSystem.StaticModUnload();
     }
 }

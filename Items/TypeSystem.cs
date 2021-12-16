@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Infuller.Items;
 
-public abstract class ItemSystem : ModSystem, IItemSystem
+public abstract class TypeSystem : ModSystem, IItemSystem
 {
     #region Instanciated
 
@@ -92,7 +92,7 @@ public abstract class ItemSystem : ModSystem, IItemSystem
         return true;
     }
 
-    public static bool TryGetItemTypes(int type, out ReadOnlyCollection<Type> types)
+    public static bool TryGetTypes(int type, out ReadOnlyCollection<Type> types)
     {
         if (!_types.TryGetValue(type, out var values))
         {
@@ -107,7 +107,7 @@ public abstract class ItemSystem : ModSystem, IItemSystem
     #endregion
 }
 
-public abstract class ItemSystem<TI, TR> : ItemSystem
+public abstract class TypeSystem<TI, TR> : TypeSystem
 {
     protected abstract override void SetupVanilla();
 
